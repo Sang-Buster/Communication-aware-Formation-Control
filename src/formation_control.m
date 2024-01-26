@@ -145,7 +145,7 @@ for k=1:max_iter
         % Normalize the arrow displacements
         arrow_magnitudes = sqrt(arrow_dx.^2 + arrow_dy.^2);
         max_arrow_magnitude = max(arrow_magnitudes);
-        scaling_factor = 2;  % Adjust the scaling factor for arrow size
+        scaling_factor = 5;  % Adjust the scaling factor for arrow size
         normalized_arrow_dx = arrow_dx * scaling_factor / max_arrow_magnitude;
         normalized_arrow_dy = arrow_dy * scaling_factor / max_arrow_magnitude;
 

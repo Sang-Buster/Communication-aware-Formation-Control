@@ -45,7 +45,7 @@ communication_qualities_matrix = zeros(swarm_size, swarm_size);
 % Initialize the distances matrix to record the distances between agents
 distances_matrix = zeros(swarm_size, swarm_size);
 
-% Initialize the rho matrix to record the rho_ij value (combined near and far-field quality) to indicate neighboring agents
+% Initialize the matrix to record the aij (near-field communication quality) value to indicate neighboring agents
 neighbor_agent_matrix = zeros(swarm_size, swarm_size);
 
 % Initialize performance indicators

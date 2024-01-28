@@ -27,7 +27,7 @@ def calculate_aij(alpha, delta, rij, r0, v):
             v (float): Path loss exponent
         
         Returns:
-            float: The calculated aij (communication quality in antenna near-field) value
+            float: The calculated aij (communication quality in antenna far-field) value
     '''
     return np.exp(-alpha*(2**delta-1)*(rij/r0)**v)
 
@@ -41,7 +41,7 @@ def calculate_gij(rij, r0):
             r0 (float): Reference distance value
         
         Returns:
-            float: The calculated gij (communication quality in antenna far-field) value
+            float: The calculated gij (communication quality in antenna near-field) value
     '''
     return rij / np.sqrt(rij**2 + r0**2)
 

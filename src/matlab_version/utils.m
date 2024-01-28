@@ -45,25 +45,19 @@ classdef utils
         end
 
 
-        function rho_ij = calculate_rho_ij(aij, rij, r0, v, beta, PT)
+        function rho_ij = calculate_rho_ij(rij, r0, v, beta)
             % Calculate the rho_ij (derivative of phi_ij, where phi_ij is the interaction model that outputs combined near and far-field communication quality) value
             %
             % Parameters:
-            %   aij (float): The communication near-field quality value
             %   rij (float): Distance between agent i and j
             %   r0 (float): Reference distance between antenna near and far-field
             %   v (float): Path loss exponent
             %   beta (float): alpha * (2**delta - 1)
-            %   PT (float): The reception probability threshold
             %
             % Returns:
             %   float: The calculated rho_ij value
 
-            if aij >= PT
-                rho_ij = (-beta * v * rij^(v+2) - beta * v * (r0^2) * (rij^v) + r0^(v+2)) * exp(-beta * (rij / r0)^v) / sqrt((rij^2 + r0^2)^3);
-            else
-                rho_ij = 0;
-            end
+            rho_ij = (-beta * v * rij^(v+2) - beta * v * (r0^2) * (rij^v) + r0^(v+2)) * exp(-beta * (rij / r0)^v) / sqrt((rij^2 + r0^2)^3);
         end
 
 

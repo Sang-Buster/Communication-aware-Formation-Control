@@ -86,11 +86,11 @@ for iter=1:max_iter
         fprintf("Agent %d\n", i);
         for j=setdiff(1:swarm_size, i)
             fprintf("Neighbor %d\n", j);
-            rij=sqrt((swarm(i,1)-swarm(j,1))^2+(swarm(i,2)-swarm(j,2))^2);
-            aij=exp(-alpha*(2^delta-1)*(rij/r0)^v);
-            gij=rij/sqrt(rij^2+r0^2);
+            rij = helper.calculate_rij(swarm(i, :), swarm(j, :));
+            aij = helper.calculate_aij(rij, alpha, delta, r0, v);
+            gij = helper.calculate_gij(rij, r0);
             if aij>=PT
-                rho_ij=(-beta*v*rij^(v+2)-beta*v*(r0^2)*(rij^v)+r0^(v+2))*exp(-beta*(rij/r0)^v)/sqrt((rij^2+r0^2)^3);
+                rho_ij = helper.calculate_rho_ij(rij, r0, v, beta);
             else
                 rho_ij=0;
             end

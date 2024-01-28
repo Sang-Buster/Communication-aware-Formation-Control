@@ -8,6 +8,21 @@
 
 </br>
 
+
+<h2 align="center">Final Project Tasks</h2>
+
+#### Task 1: 
+- Add one agent to the swarm.
+- Remove one agent from the swarm.
+- Make one agent stay still in the swarm.
+
+#### Task 2: 
+- Make a destination for the swarm to reach to.
+- Set obstacles along the way. 
+- Develop a strategy to avoid obstacles while reaching the destination.
+
+</br>
+
 <table>
   <tr>
     <th>Paper</th>
@@ -24,15 +39,3 @@
     </td>
   </tr>
 </table>
-
-<h2 align="center">Final Project Tasks</h2>
-
-### **Task 1:** 
-- Add one agent to the swarm.
-- Remove one agent from the swarm.
-- Make one agent stay still in the swarm.
-
-### **Task 2:** 
-- Make a destination for the swarm to reach to.
-- Set obstacles along the way. 
-- Develop a strategy to avoid obstacles while reaching the destination.

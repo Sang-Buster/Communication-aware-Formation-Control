@@ -20,6 +20,28 @@
 - Set obstacles along the way. 
 - Develop a strategy to avoid obstacles while reaching the destination.
 
+<h2 align="center">File Tree</h2>
+
+```text
+📦330 Final Project
+ ┣ 📂lib                      // Supplementary materials
+ ┃ ┗ 📜Li-paper.pdf
+ ┃ ┗ 📜Xing-ppt.pdf
+ ┣ 📂img            // Images for README.md
+ ┃ ┗ 📜cover_paper.png
+ ┃ ┗ 📜cover_ppt.png
+ ┣ 📂src                      // Source code
+ ┃ ┣ 📂matlab_version
+ ┃ ┃ ┣ 📜formation_control.m
+ ┃ ┃ ┗ 📜utils.m
+ ┃ ┣ 📂python_version
+ ┃ ┃ ┣ 📜formation_control.py
+ ┃ ┃ ┣ 📜setup.py
+ ┃ ┃ ┗ 📜utils.py
+ ┣ 📜.gitignore
+ ┗ 📜README.md
+```
+
 </br>
 </br>
 
@@ -30,11 +52,11 @@
   </tr>
   <tr>
     <td align="center">
-          <a href="https://github.com/Sang-Buster/CEC-300-Final/blob/main/lib/Li-2015-A_novelcommunication-aware_formation_control.pdf"><img src="https://github.com/Sang-Buster/CEC-300-Final/blob/main/README.assets/cover_paper.png?raw=true" /></a>
-          <a href="https://github.com/Sang-Buster/CEC-300-Final/blob/main/lib/Li-2015-A_novelcommunication-aware_formation_control.pdf"><img src="https://img.shields.io/badge/View%20More-282c34?style=for-the-badge&logoColor=white" width="100" /></a>
+          <a href="https://github.com/Sang-Buster/CEC-300-Final/blob/main/lib/Li-paper.pdf"><img src="https://github.com/Sang-Buster/CEC-300-Final/blob/main/img/cover_paper.png?raw=true" /></a>
+          <a href="https://github.com/Sang-Buster/CEC-300-Final/blob/main/lib/Li-paper.pdf"><img src="https://img.shields.io/badge/View%20More-282c34?style=for-the-badge&logoColor=white" width="100" /></a>
     </td>
     <td align="center">
-          <a href="https://github.com/Sang-Buster/CEC-300-Final/blob/main/lib/Xing-ppt.pdf"><img src="https://github.com/Sang-Buster/CEC-300-Final/blob/main/README.assets/cover_ppt.png?raw=true" /></a>
+          <a href="https://github.com/Sang-Buster/CEC-300-Final/blob/main/lib/Xing-ppt.pdf"><img src="https://github.com/Sang-Buster/CEC-300-Final/blob/main/img/cover_ppt.png?raw=true" /></a>
           <a href="https://github.com/Sang-Buster/CEC-300-Final/blob/main/lib/Xing-ppt.pdf"><img src="https://img.shields.io/badge/View%20More-282c34?style=for-the-badge&logoColor=white" width="100" /></a>
     </td>
   </tr>

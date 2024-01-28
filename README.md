@@ -27,7 +27,7 @@
  ┣ 📂lib                      // Supplementary materials
  ┃ ┗ 📜Li-paper.pdf
  ┃ ┗ 📜Xing-ppt.pdf
- ┣ 📂img            // Images for README.md
+ ┣ 📂img                      // Images for README.md
  ┃ ┗ 📜cover_paper.png
  ┃ ┗ 📜cover_ppt.png
  ┣ 📂src                      // Source code

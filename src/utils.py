@@ -20,7 +20,7 @@ def calculate_aij(alpha, delta, rij, r0, v):
         Calculate the aij value
         
         Parameters:
-            alpha (float): A system parameter about antenna characteristics
+            alpha (float): System parameter about antenna characteristics
             delta (float): The required application data rate
             rij (float): The distance between two agents
             r0 (float): Reference distance value
@@ -87,7 +87,7 @@ def calculate_Jn(communication_qualities, neighbor_agent, PT):
 
 def calculate_rn(distances, neighbor_agent, PT):
     '''
-        Calculate the rn (average distance) value
+        Calculate the rn (average neighboring distance performance indicator) value
 
         Parameters:
             distances (numpy.ndarray): The distances matrix among agents
@@ -106,6 +106,7 @@ def calculate_rn(distances, neighbor_agent, PT):
                 total_distance += distances[i, j]
                 total_neighbors += 1
     return total_distance / total_neighbors
+
 
 def plot_figures(axs, t_elapsed, Jn, rn, swarm_position, PT, communication_qualities, swarm_size, swarm_paths, node_colors, line_colors):
     '''

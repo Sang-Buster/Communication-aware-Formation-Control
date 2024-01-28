@@ -1,18 +1,18 @@
-# Communicationa-aware formation control algorithm
+# Communicationa-aware Formation Control Algorithm
 # Author: Sang Xing
 # Date: 01/26/2024
 
 import numpy as np
 import matplotlib.pyplot as plt
 import time
-from utils import *
+import utils 
 
 #---------------------------#
 # Initialize all parameters #
 #---------------------------#
 
 # Initialize the maximum iteration
-max_iter = 300
+max_iter = 500
 
 # Initialize agents' positions
 swarm_position = np.array([
@@ -28,66 +28,55 @@ swarm_position = np.array([
 # Initialize the swarm size
 swarm_size = swarm_position.shape[0]
 
-# Initialize the swarm velocity
-swarm_speed = np.zeros((swarm_size, 2))
+# Initialize the swarm control
+swarm_control_ui = np.zeros((swarm_size, 2))
+
+# Initialize system parameter about antenna characteristics
+alpha = 10**(-5)  
+
+# Initialize required application data rate
+delta = 2  
+beta = alpha*(2**delta-1)
+
+# Initialize path loss exponent
+v = 3  
+
+# Initialize reference distance 
+r0 = 5  
+
+# Initialize reception probability threshold
+PT = 0.94
+
+# Initialize performance indicators
+Jn = []
+rn = []
+
+# Initialize timer
+start_time = time.time()
+t_elapsed = []
+
+# Initialize the communication qualities matrix to record the communication qualities between agents
+communication_qualities_matrix = np.zeros((swarm_size, swarm_size))
+
+# Initialize the distances matrix to record the distances between agents
+distances_matrix = np.zeros((swarm_size, swarm_size))
+
+# Initialize the rho matrix to record the rho_ij value (combined near and far-field quality) to indicate neighboring agents
+neighbor_agent_matrix = np.zeros((swarm_size, swarm_size))
 
 # Initialize the list for swarm trajectory plot
 swarm_paths = []
 
-# Define agent color
-node_colors = np.array([
-    [108, 155, 207],  # Light Blue
-    [247, 147, 39],   # Orange
-    [242, 102, 171],  # Light Pink
-    [255, 217, 90],   # Light Gold
-    [122, 168, 116],  # Green
-    [147, 132, 209],  # Purple
-    [245, 80, 80]     # Red
-]) / 255  # Divide by 255 to scale the RGB values to the [0, 1] range
+# Assign node (aka agent) color
+node_colors = np.random.rand(swarm_position.shape[0], 3)
 
-# Define the color of the agents' communication links aka edges
+# Assign edge (aka communication links between agents) color
 line_colors = np.random.rand(swarm_position.shape[0], swarm_position.shape[0], 3)
 
-# System parameter about antenna characteristics
-alpha = 10**(-5)  
 
-# Required application data rate
-delta = 2  
-beta = alpha*(2**delta-1)
-
-# Path loss exponent
-v = 3  
-
-# Reference distance 
-r0 = 5  
-
-# Reception probability threshold
-PT = 0.94  
-
-# Performance indicators
-Jn = 0
-rn = 0
-
-# Initialize the communication qualities matrix to record the communication qualities between agents
-communication_qualities = np.zeros((swarm_size, swarm_size))
-
-# Initialize the distances matrix to record the distances between agents
-distances = np.zeros((swarm_size, swarm_size))
-
-# Initialize the rho matrix to record the rho_ij value (combined near and far-field quality) to indicate neighboring agents
-neighbor_agent = np.zeros((swarm_size, swarm_size))
-
-
-
-#---------------------#
-# Gradient Controller #
-#---------------------#
-
-Jn = []
-rn = []
-
-start_time = time.time()
-t_elapsed = []
+#----------------------#
+# Formation Controller #
+#----------------------#
 
 # Initialize the figure
 fig, axs = plt.subplots(2, 2, figsize=(10, 10))
@@ -98,47 +87,53 @@ for iter in range(max_iter):
         print('Agent: ', i)
         for j in [x for x in range(swarm_size) if x != i]:
             print('Neighbor: ', j)
-            rij = calculate_distance(swarm_position[i], swarm_position[j])
-            aij = calculate_aij(alpha, delta, rij, r0, v)
-            gij = calculate_gij(rij, r0)
+            rij = utils.calculate_distance(swarm_position[i], swarm_position[j])
+            aij = utils.calculate_aij(alpha, delta, rij, r0, v)
+            gij = utils.calculate_gij(rij, r0)
             if aij >= PT:
-                rho_ij = calculate_rho_ij(beta, v, rij, r0)
+                rho_ij = utils.calculate_rho_ij(beta, v, rij, r0)
             else:
                 rho_ij = 0
             
             qi = swarm_position[i, :]
             qj = swarm_position[j, :]
-            normalized_distance = (qi - qj) / np.sqrt(np.linalg.norm(qi - qj))
-
-            swarm_speed[i, 0] += rho_ij * normalized_distance[0]
-            swarm_speed[i, 1] += rho_ij * normalized_distance[1]
+            eij = (qi - qj) / np.sqrt(rij)
             
-            # Record the communication qualities, distances, and neighbor_agent matrix for Jn and rn performance plots
+            # Calculate the control input
+            swarm_control_ui[i, 0] += rho_ij * eij[0]
+            swarm_control_ui[i, 1] += rho_ij * eij[1]
+            
+            # Record the communication qualities, distances, and neighbor_agent matrices for Jn and rn performance plots
             phi_rij = gij * aij
-            communication_qualities[i, j] = phi_rij
-            communication_qualities[j, i] = phi_rij
-            print('communication_qualities: ', communication_qualities)
+            communication_qualities_matrix[i, j] = phi_rij
+            communication_qualities_matrix[j, i] = phi_rij
+            # print('communication_qualities matrix: ', communication_qualities_matrix)
             
-            distances[i, j] = rij
-            distances[j, i] = rij
-            print('distances: ', distances)
+            distances_matrix[i, j] = rij
+            distances_matrix[j, i] = rij
+            # print('distances matrix: ', distances_matrix)
             
-            neighbor_agent[i, j] = aij
-            neighbor_agent[j, i] = aij
-            print('neighbor_agent: ', neighbor_agent)
+            neighbor_agent_matrix[i, j] = aij
+            neighbor_agent_matrix[j, i] = aij
+            # print('neighbor_agent matrix: ', neighbor_agent_matrix)
 
-        swarm_position[i, 0] += swarm_speed[i, 0]
-        swarm_position[i, 1] += swarm_speed[i, 1]
-        swarm_speed[i, 0] = 0
-        swarm_speed[i, 1] = 0
+        swarm_position[i, 0] += swarm_control_ui[i, 0]
+        swarm_position[i, 1] += swarm_control_ui[i, 1]
+        swarm_control_ui[i, 0] = 0
+        swarm_control_ui[i, 1] = 0
         
-    Jn.append(calculate_Jn(communication_qualities, neighbor_agent, PT))
-    rn.append(calculate_rn(distances, neighbor_agent, PT))     
+    Jn.append(utils.calculate_Jn(communication_qualities_matrix, neighbor_agent_matrix, PT))
+    rn.append(utils.calculate_rn(distances_matrix, neighbor_agent_matrix, PT))     
     t_elapsed.append(time.time() - start_time)
         
     #-----------------#
     # Starts plotting #
     #-----------------#
     
-    plot_figures(axs, t_elapsed, Jn, rn, swarm_position, PT, communication_qualities, swarm_size, swarm_paths, node_colors, line_colors)
+    utils.plot_figures(axs, t_elapsed, Jn, rn, swarm_position, PT, communication_qualities_matrix, swarm_size, swarm_paths, node_colors, line_colors)
+
+    # Check if the last 50 values in Jn are the same
+    if len(Jn) > 49 and len(set(Jn[-50:])) == 1:
+        print("Simulation stopped early: Jn values has converged.")
+        break
 plt.show()

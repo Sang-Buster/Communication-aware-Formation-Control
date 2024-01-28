@@ -8,7 +8,6 @@
 
 </br>
 
-
 <h2 align="center">Final Project Tasks</h2>
 
 #### Task 1: 
@@ -21,6 +20,7 @@
 - Set obstacles along the way. 
 - Develop a strategy to avoid obstacles while reaching the destination.
 
+</br>
 </br>
 
 <table>

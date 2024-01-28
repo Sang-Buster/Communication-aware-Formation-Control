@@ -1,6 +1,6 @@
 <h1 align="center">Communication-aware Formation Control for Dynamical Multi-agent System</h1>
 
-<h4 align="center"><small>CEC 300 - Computing in Aerospace and Aviation</small></h4>
+<h4 align="center"><small>CEC 300 | Computing in Aerospace and Aviation | Final Project</small></h4>
 
 <h6 align="center"><small>Python and MATLAB implementations of Communication-aware Formation Control Algorithm.</small></h6>
 

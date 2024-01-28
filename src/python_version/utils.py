@@ -78,7 +78,8 @@ def calculate_Jn(communication_qualities, neighbor_agent, PT):
     total_neighbors = 0
     swarm_size = communication_qualities.shape[0]
     for i in range(swarm_size):
-        for j in range(swarm_size):
+        for j in [x for x in range(swarm_size) if x != i]:
+            print('Neighbor: ', j)
             if neighbor_agent[i, j] > PT:
                 total_communication_quality += communication_qualities[i, j]
                 total_neighbors += 1
@@ -101,7 +102,7 @@ def calculate_rn(distances, neighbor_agent, PT):
     total_neighbors = 0
     swarm_size = distances.shape[0]
     for i in range(swarm_size):
-        for j in range(swarm_size):
+        for j in [x for x in range(swarm_size) if x != i]:
             if neighbor_agent[i, j] > PT:
                 total_distance += distances[i, j]
                 total_neighbors += 1

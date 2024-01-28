@@ -82,7 +82,7 @@ classdef utils
             total_neighbors = 0;
             swarm_size = size(communication_qualities, 1);
             for i = 1:swarm_size
-                for j = 1:swarm_size
+                for j=setdiff(1:swarm_size, i)
                     if neighbor_agent(i, j) > PT
                         total_communication_quality = total_communication_quality + communication_qualities(i, j);
                         total_neighbors = total_neighbors + 1;
@@ -108,7 +108,7 @@ classdef utils
             total_neighbors = 0;
             swarm_size = size(distances, 1);
             for i = 1:swarm_size
-                for j = 1:swarm_size
+                for j=setdiff(1:swarm_size, i)
                     if neighbor_agent(i, j) > PT
                         total_distance = total_distance + distances(i, j);
                         total_neighbors = total_neighbors + 1;

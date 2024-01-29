@@ -79,7 +79,6 @@ def calculate_Jn(communication_qualities, neighbor_agent, PT):
     swarm_size = communication_qualities.shape[0]
     for i in range(swarm_size):
         for j in [x for x in range(swarm_size) if x != i]:
-            print('Neighbor: ', j)
             if neighbor_agent[i, j] > PT:
                 total_communication_quality += communication_qualities[i, j]
                 total_neighbors += 1
@@ -169,9 +168,20 @@ def plot_figures(axs, t_elapsed, Jn, rn, swarm_position, PT, communication_quali
         dx = np.diff(trajectory_array[::swarm_size, i, 0])
         dy = np.diff(trajectory_array[::swarm_size, i, 1])
         
-        # Normalize the vectors
-        dx_norm = dx / np.sqrt(dx**2 + dy**2)
-        dy_norm = dy / np.sqrt(dx**2 + dy**2)
+        # Calculate the differences between consecutive points
+        dx = np.diff(trajectory_array[::swarm_size, i, 0])
+        dy = np.diff(trajectory_array[::swarm_size, i, 1])
+
+        # Initialize normalized arrays with zeros
+        dx_norm = np.zeros_like(dx)
+        dy_norm = np.zeros_like(dy)
+
+        # Normalize the vectors where dx and dy are not both zero
+        for j in range(len(dx)):
+            if dx[j] != 0 or dy[j] != 0:
+                norm = np.sqrt(dx[j]**2 + dy[j]**2)
+                dx_norm[j] = dx[j] / norm
+                dy_norm[j] = dy[j] / norm
 
         # Scale the vectors by a constant factor
         scale_factor = 2

@@ -68,7 +68,15 @@ neighbor_agent_matrix = np.zeros((swarm_size, swarm_size))
 swarm_paths = []
 
 # Assign node (aka agent) color
-node_colors = np.random.rand(swarm_position.shape[0], 3)
+node_colors = [
+    [108/255, 155/255, 207/255],  # Light Blue
+    [247/255, 147/255, 39/255],   # Orange
+    [242/255, 102/255, 171/255],  # Light Pink
+    [255/255, 217/255, 90/255],   # Light Gold
+    [122/255, 168/255, 116/255],  # Green
+    [147/255, 132/255, 209/255],  # Purple
+    [245/255, 80/255, 80/255]     # Red
+]
 
 # Assign edge (aka communication links between agents) color
 line_colors = np.random.rand(swarm_position.shape[0], swarm_position.shape[0], 3)

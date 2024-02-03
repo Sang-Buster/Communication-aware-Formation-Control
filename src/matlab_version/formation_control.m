@@ -60,7 +60,15 @@ t_elapsed = [];
 edge_colors = rand(swarm_size, swarm_size, 3);
 
 % Assign a different color to each agent node
-node_colors = rand(swarm_size, 3);
+node_colors = [
+    108 155 207;  % Light Blue
+    247 147 39;   % Orange
+    242 102 171;  % Light Pink
+    255 217 90;   % Light Gold
+    122 168 116;  % Green
+    147 132 209;  % Purple
+    245 80 80     % Red
+    ] / 255;  % Divide by 255 to scale the RGB values to the [0, 1] range
 
 % Define the figure positions
 figure_positions = [

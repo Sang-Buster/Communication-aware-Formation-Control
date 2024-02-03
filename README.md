@@ -8,7 +8,7 @@
 
 </br>
 
-<h2 align="center">Final Project Tasks</h2>
+<h2 align="center">Project Tasks</h2>
 
 #### Task 1: 
 - Add one agent to the swarm.

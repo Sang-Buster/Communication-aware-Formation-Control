@@ -42,8 +42,7 @@
  ┗ 📜README.md
 ```
 
-</br>
-</br>
+<h2 align="center">Supplementary Materials</h2>
 
 <table>
   <tr>

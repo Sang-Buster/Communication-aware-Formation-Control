@@ -25,6 +25,9 @@ swarm_position = np.array([
     [72, -18]
 ])
 
+# Initialize the swarm destination
+swarm_destination = np.array([35, 50])
+
 # Initialize the swarm size
 swarm_size = swarm_position.shape[0]
 
@@ -81,6 +84,9 @@ node_colors = [
 # Assign edge (aka communication links between agents) color
 line_colors = np.random.rand(swarm_position.shape[0], swarm_position.shape[0], 3)
 
+# Initialize a flag for Jn convergence
+Jn_converged = False
+
 
 #----------------------#
 # Formation Controller #
@@ -92,9 +98,9 @@ fig, axs = plt.subplots(2, 2, figsize=(10, 10))
 for iter in range(max_iter):
     print('Iteration: ', iter)
     for i in range(swarm_size):
-        print('Agent: ', i)
+        # print('Agent: ', i)
         for j in [x for x in range(swarm_size) if x != i]:
-            print('Neighbor: ', j)
+            # print('Neighbor: ', j)
             rij = utils.calculate_distance(swarm_position[i], swarm_position[j])
             aij = utils.calculate_aij(alpha, delta, rij, r0, v)
             gij = utils.calculate_gij(rij, r0)
@@ -107,7 +113,9 @@ for iter in range(max_iter):
             qj = swarm_position[j, :]
             eij = (qi - qj) / np.sqrt(rij)
             
-            # Calculate the control input
+            ###########################
+            # Formation control input #
+            ###########################
             swarm_control_ui[i, 0] += rho_ij * eij[0]
             swarm_control_ui[i, 1] += rho_ij * eij[1]
             
@@ -140,8 +148,39 @@ for iter in range(max_iter):
     
     utils.plot_figures(axs, t_elapsed, Jn, rn, swarm_position, PT, communication_qualities_matrix, swarm_size, swarm_paths, node_colors, line_colors)
 
-    # Check if the last 50 values in Jn are the same
-    if len(Jn) > 49 and len(set(Jn[-50:])) == 1:
-        print("Simulation stopped early: Jn values has converged.")
-        break
+    # Check if the last 30 values in Jn are the same
+    if len(Jn) > 29 and len(set(Jn[-20:])) == 1:
+        if not Jn_converged:
+            print(f"Formation completed: Jn values has converged in {round(t_elapsed[-1], 2)} seconds {iter-20} iterations.")
+            print("Swarm reached to destination starts.")
+            Jn_converged = True
+
+    ###################################
+    # Reach2Destination control input #
+    ###################################
+    if Jn_converged:
+        # Calculate the centroid of the swarm
+        swarm_centroid = np.mean(swarm_position, axis=0)
+
+        # Find the index of the agent with the minimum distance to the destination
+        k = utils.find_closest_agent(swarm_position, swarm_centroid)
+        
+        # Initialize control parameters
+        am, bm = 0.7, 0.5
+        
+        for k in range(swarm_size):
+            destination_vector = [swarm_destination[0] - swarm_position[k, 0], swarm_destination[1] - swarm_position[k, 1]]
+            dist_vector = np.linalg.norm(destination_vector)
+            destination_speed = destination_vector / np.linalg.norm(destination_vector)
+
+            # Calculate the control parameter
+            contr_param = am if dist_vector > bm else am * (dist_vector / bm)
+
+            swarm_control_ui[k, 0] += destination_speed[0] * contr_param
+            swarm_control_ui[k, 1] += destination_speed[1] * contr_param
+
+            swarm_position[k, 0] += swarm_control_ui[k, 0]
+            swarm_position[k, 1] += swarm_control_ui[k, 1] 
+            
+            print(f'Coordinates of agent {k}: {swarm_position[k, :]}')
 plt.show()

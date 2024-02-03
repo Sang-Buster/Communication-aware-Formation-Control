@@ -108,6 +108,26 @@ def calculate_rn(distances, neighbor_agent, PT):
     return total_distance / total_neighbors
 
 
+def find_closest_agent(swarm_position, swarm_destination):
+    '''
+    Find the index of the agent with the minimum distance to the destination
+    
+    Parameters:
+        swarm_position (numpy.ndarray): The positions of the swarm
+        swarm_destination (numpy.ndarray): The destination of the swarm
+        
+    Returns:
+        int: The index of the agent with the minimum distance to the destination
+    '''
+    # Calculate the Euclidean distance from each agent to the destination
+    distances = np.sqrt(np.sum((swarm_position - swarm_destination)**2, axis=1))
+    
+    # Find the index of the agent with the minimum distance
+    closest_agent_index = np.argmin(distances)
+    
+    return closest_agent_index
+
+
 def plot_figures(axs, t_elapsed, Jn, rn, swarm_position, PT, communication_qualities, swarm_size, swarm_paths, node_colors, line_colors):
     '''
         Plot 4 figures (Formation Scene, Swarm Trajectories, Jn Performance, rn Performance)

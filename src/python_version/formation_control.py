@@ -1,4 +1,4 @@
-# Communicationa-aware Formation Control Algorithm
+# Communication-aware Formation Control Algorithm
 # Author: Sang Xing
 # Date: 01/26/2024
 
@@ -125,7 +125,7 @@ for iter in range(max_iter):
     Jn.append(utils.calculate_Jn(communication_qualities_matrix, neighbor_agent_matrix, PT))
     rn.append(utils.calculate_rn(distances_matrix, neighbor_agent_matrix, PT))     
     t_elapsed.append(time.time() - start_time)
-        
+
     #-----------------#
     # Starts plotting #
     #-----------------#

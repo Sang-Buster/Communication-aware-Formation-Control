@@ -8,12 +8,17 @@ import matplotlib.pyplot as plt
 import time
 import utils 
 
+
 #---------------------------#
 # Initialize all parameters #
 #---------------------------#
-
-# Initialize the maximum iteration
-max_iter = 500
+max_iter = 500     # Maximum number of iterations
+alpha = 10**(-5)   # Initialize system parameter about antenna characteristics
+delta = 2          # Initialize required application data rate
+beta = alpha*(2**delta-1)
+v = 3              # Initialize path loss exponent
+r0 = 5             # Initialize reference distance 
+PT = 0.94          # Initialize the threshold value for communication quality
 
 # Initialize agents' positions
 swarm_position = np.array([
@@ -34,22 +39,6 @@ swarm_size = swarm_position.shape[0]
 
 # Initialize the swarm control
 swarm_control_ui = np.zeros((swarm_size, 2))
-
-# Initialize system parameter about antenna characteristics
-alpha = 10**(-5)  
-
-# Initialize required application data rate
-delta = 2  
-beta = alpha*(2**delta-1)
-
-# Initialize path loss exponent
-v = 3  
-
-# Initialize reference distance 
-r0 = 5  
-
-# Initialize reception probability threshold
-PT = 0.94
 
 # Initialize performance indicators
 Jn = []
@@ -88,14 +77,13 @@ line_colors = np.random.rand(swarm_position.shape[0], swarm_position.shape[0], 3
 # Initialize a flag for Jn convergence
 Jn_converged = False
 
+# Initialize the figure
+fig, axs = plt.subplots(2, 2, figsize=(10, 10))
+
 
 #----------------------#
 # Formation Controller #
 #----------------------#
-
-# Initialize the figure
-fig, axs = plt.subplots(2, 2, figsize=(10, 10))
-
 for iter in range(max_iter):
     print('Iteration: ', iter)
     for i in range(swarm_size):
@@ -138,16 +126,13 @@ for iter in range(max_iter):
         
         Jn_new = utils.calculate_Jn(communication_qualities_matrix, neighbor_agent_matrix, PT)
         rn_new = utils.calculate_rn(distances_matrix, neighbor_agent_matrix, PT)
-        
+    
+    # Record the performance indicators    
     Jn.append(round(Jn_new, 4))
     rn.append(round(rn_new, 4))  
-    t_elapsed.append(time.time() - start_time)
-
-    # Starts plotting
-    utils.plot_figures_task2(axs, t_elapsed, Jn, rn, swarm_position, swarm_destination, PT, communication_qualities_matrix, swarm_size, swarm_paths, node_colors, line_colors)
     
-    # Check if the last 30 values in Jn are the same, if so, the formation is completed, and the swarm starts to reach the destination
-    if len(Jn) > 29 and len(set(Jn[-20:])) == 1:
+    # Check if the last 20 values in Jn are the same, if so, the formation is completed, and the swarm starts to reach the destination
+    if len(Jn) > 19 and len(set(Jn[-20:])) == 1:
         if not Jn_converged:
             print(f"Formation completed: Jn values has converged in {round(t_elapsed[-1], 2)} seconds {iter-20} iterations.")
             print("Swarm reached to destination starts.")
@@ -189,8 +174,13 @@ for iter in range(max_iter):
     ####################################
     # Obstacle Avoidance control input #
     ####################################
-    
     # You code here...
     # You may use your own algorithm to reach to the destination
-
+    
+    
+    # Record the elapsed time
+    t_elapsed.append(time.time() - start_time)
+    
+    # Starts plotting
+    utils.plot_figures_task2(axs, t_elapsed, Jn, rn, swarm_position, swarm_destination, PT, communication_qualities_matrix, swarm_size, swarm_paths, node_colors, line_colors)
 plt.show()

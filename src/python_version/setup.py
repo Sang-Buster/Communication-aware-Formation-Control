@@ -11,6 +11,7 @@ for package in REQUIRED_PACKAGES:
     try:
         dist = distribution(package)
         print('{} ({}) is installed'.format(dist.metadata['Name'], dist.version))
+        print('All requirements are already installed!')
     except PackageNotFoundError:
         print('{} is NOT installed'.format(package))
         subprocess.call([sys.executable, "-m", "pip", "install", package])

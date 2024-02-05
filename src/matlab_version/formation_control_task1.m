@@ -1,8 +1,8 @@
 % Communication-aware Formation Control Algorithm
+% Task 1: Add/Remove/Freeze An Agent
 % Author: Sang Xing
-% Date: 1/26/2024
+% Date: 01/26/2024
 
-clear all;
 close all;
 clc;
 
@@ -91,9 +91,7 @@ fig4 = figure('Position', figure_positions(4, :)); % rn plot
 for iter=1:max_iter
     fprintf("Iteration %d\n", iter);
     for i=1:swarm_size
-        fprintf("Agent %d\n", i);
         for j=setdiff(1:swarm_size, i)
-            fprintf("Neighbor %d\n", j);
             rij = helper.calculate_rij(swarm(i, :), swarm(j, :));
             aij = helper.calculate_aij(rij, alpha, delta, r0, v);
             gij = helper.calculate_gij(rij, r0);
@@ -103,33 +101,30 @@ for iter=1:max_iter
                 rho_ij=0;
             end
 
-            qi=[swarm(i,1), swarm(i,2)];
-            qj=[swarm(j,1), swarm(j,2)];
-            eij=(qi-qj)/sqrt(1+norm(qi-qj));
+            qi = [swarm(i,1), swarm(i,2)];
+            qj = [swarm(j,1), swarm(j,2)];
+            eij = (qi-qj) / sqrt(1 + norm(qi - qj));
 
             % Calculate the control input
-            swarm_control_ui(i,1)=swarm_control_ui(i,1)+rho_ij*eij(1);
-            swarm_control_ui(i,2)=swarm_control_ui(i,2)+rho_ij*eij(2);
+            swarm_control_ui(i,1) = swarm_control_ui(i,1) + rho_ij*eij(1);
+            swarm_control_ui(i,2) = swarm_control_ui(i,2) + rho_ij*eij(2);
 
             % Record the communication qualities, distances, and neighbor_agent matrix for Jn and rn performance plots
             phi_rij=gij*aij;
             communication_qualities_matrix(i,j) = phi_rij;
             communication_qualities_matrix(j, i) = phi_rij;
-            % fprintf("communication_qualities_matrix(%d, %d) = %f\n", i, j, communication_qualities_matrix(i, j));
 
             distances_matrix(i, j) = rij;
             distances_matrix(j, i) = rij;
-            % fprintf("distances_matrix(%d, %d) = %f\n", i, j, distances_matrix(i, j));
 
             neighbor_agent_matrix(i, j) = aij;
             neighbor_agent_matrix(j, i) = aij;
-            % fprintf("neighbor_agent_matrix(%d, %d) = %f\n", i, j, neighbor_agent_matrix(i, j));
         end
         
-        swarm(i,1)=swarm(i,1)+swarm_control_ui(i,1);
-        swarm(i,2)=swarm(i,2)+swarm_control_ui(i,2);
-        swarm_control_ui(i,1)=0;
-        swarm_control_ui(i,2)=0;
+        swarm(i,1) = swarm(i,1) + swarm_control_ui(i,1);
+        swarm(i,2) = swarm(i,2) + swarm_control_ui(i,2);
+        swarm_control_ui(i,1) = 0;
+        swarm_control_ui(i,2) = 0;
         
         % Store the node trace
         swarm_trace(iter, i, :) = swarm(i, :);
@@ -137,18 +132,28 @@ for iter=1:max_iter
 
     Jn = helper.calculate_Jn(communication_qualities_matrix, neighbor_agent_matrix, PT);
     rn = helper.calculate_rn(distances_matrix, neighbor_agent_matrix, PT);    
-    t_elapsed = [t_elapsed, toc(start_time)];
 
     % Append Jn and rn to their respective lists
     Jn_list = [Jn_list, Jn];
     rn_list = [rn_list, rn];
 
-    % Plot the formation scene, node trace, Jn, and rn plots
-    helper.plot_formation(swarm, swarm_size, neighbor_agent_matrix, PT, iter, node_colors, edge_colors, fig1, fig2, fig3, fig4, Jn_list, rn_list, t_elapsed, swarm_trace)
-
-    % Check if the last 50 values in Jn are the same
-    if length(Jn_list) > 49 && length(unique(round(Jn_list(end-49:end), 4))) == 1
-        fprintf('Simulation stopped early: Jn values has converged.\n');
-        break;
+    % Check if the last 20 values in Jn are the same
+    if length(Jn_list) > 19 && length(unique(round(Jn_list(end-19:end), 4))) == 1
+        fprintf('Formation completed: Jn values has converged in %.2f seconds %d iterations.\n', t_elapsed(end), iter-20);
+        break; % Remove this line for Add/Remove/Freeze an agent
     end
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Add/Remove/Freeze an agent %
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % if Jn_converged:
+    %     Your code here...
+    % end
+    
+
+    % Append the elapsed time to the list
+    t_elapsed = [t_elapsed, toc(start_time)];
+
+    % Plot the formation scene, node trace, Jn, and rn plots
+    helper.plot_formation_task1(swarm, swarm_size, neighbor_agent_matrix, PT, iter, node_colors, edge_colors, fig1, fig2, fig3, fig4, Jn_list, rn_list, t_elapsed, swarm_trace)
 end

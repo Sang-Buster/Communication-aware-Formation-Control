@@ -10,12 +10,12 @@
 
 <h2 align="center">Project Tasks</h2>
 
-#### Task 1: 
+#### Project 1: 
 - Add one agent to the swarm.
 - Remove one agent from the swarm.
 - Make one agent stay still in the swarm.
 
-#### Task 2: 
+#### Project 2: 
 - Make a destination for the swarm to reach to.
 - Set obstacles along the way. 
 - Develop a strategy to avoid obstacles while reaching the destination.
@@ -24,22 +24,20 @@
 
 ```text
 📦330 Final Project
- ┣ 📂lib                      // Supplementary materials
- ┃ ┗ 📜Li-paper.pdf
- ┃ ┗ 📜Xing-ppt.pdf
- ┣ 📂img                      // Images for README.md
- ┃ ┗ 📜cover_paper.png
- ┃ ┗ 📜cover_ppt.png
- ┣ 📂src                      // Source code
+ ┣ 📂img                              // Readme Assets
+ ┣ 📂lib                              // Supplementary Materials
+ ┣ 📂src                              // Source Code
  ┃ ┣ 📂matlab_version
- ┃ ┃ ┣ 📜formation_control.m
- ┃ ┃ ┗ 📜utils.m
- ┃ ┣ 📂python_version
- ┃ ┃ ┣ 📜formation_control.py
- ┃ ┃ ┣ 📜setup.py
- ┃ ┃ ┗ 📜utils.py
- ┣ 📜.gitignore
- ┗ 📜README.md
+ ┃ ┃ ┣ 📄formation_control_proj1.m
+ ┃ ┃ ┣ 📄formation_control_proj2.m
+ ┃ ┃ ┗ 📄utils.m
+ ┃ ┗ 📂python_version
+ ┃ ┃ ┣ 📄formation_control_proj1.py
+ ┃ ┃ ┣ 📄formation_control_proj2.py
+ ┃ ┃ ┣ 📄setup.py
+ ┃ ┃ ┗ 📄utils.py
+ ┣ 📄.gitignore
+ ┗ 📄README.md
 ```
 
 <h2 align="center">Supplementary Materials</h2>

@@ -57,7 +57,7 @@
     <td align="center">
           <a href="https://github.com/Sang-Buster/CEC-300-Final/blob/main/lib/Xing-ppt.pdf"><img src="https://github.com/Sang-Buster/CEC-300-Final/blob/main/img/cover_ppt.png?raw=true" /></a>
           <a href="https://github.com/Sang-Buster/CEC-300-Final/blob/main/lib/Xing-ppt.pdf"><img src="https://img.shields.io/badge/View%20Slides-282c34?style=for-the-badge&logoColor=white" /></a>   
-          <a href="https://github.com/Sang-Buster/CEC-300-Final/assets/97267956/03072ecc-8218-40d9-a169-90774cb7c2ae" target="_blank"><img src="https://img.shields.io/badge/View%20Simulation%20Video-282c34?style=for-the-badge&logoColor=white" /></a>     
+          <a href="https://github.com/Sang-Buster/CEC-300-Final/assets/97267956/03072ecc-8218-40d9-a169-90774cb7c2ae"><img src="https://img.shields.io/badge/View%20Simulation%20Video-282c34?style=for-the-badge&logoColor=white" /></a>     
     </td>
   </tr>
 </table>

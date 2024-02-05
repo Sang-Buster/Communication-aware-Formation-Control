@@ -103,7 +103,9 @@ for iter in range(max_iter):
             qj = swarm_position[j, :]
             eij = (qi - qj) / np.sqrt(rij)
             
-            # Formation control input
+            ###########################
+            # Formation control input #
+            ###########################
             swarm_control_ui[i, 0] += rho_ij * eij[0]
             swarm_control_ui[i, 1] += rho_ij * eij[1]
             

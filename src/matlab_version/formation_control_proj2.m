@@ -109,7 +109,7 @@ for iter=1:max_iter
 
             qi = [swarm(i,1), swarm(i,2)];
             qj = [swarm(j,1), swarm(j,2)];
-            eij = (qi-qj) / sqrt(1 + norm(qi - qj));
+            eij = (qi-qj) / sqrt(norm(qi - qj));
 
             %%%%%%%%%%%%%%%%%%%%%%%%%%%
             % Formation control input %

@@ -95,6 +95,7 @@ for iter in range(max_iter):
             aij = utils.calculate_aij(alpha, delta, rij, r0, v)
             gij = utils.calculate_gij(rij, r0)
             if aij >= PT:
+                # rho_ij is the derivative of upper case phi_ij (which is the same as the lower case phi_ij in powerpoint)
                 rho_ij = utils.calculate_rho_ij(beta, v, rij, r0)
             else:
                 rho_ij = 0

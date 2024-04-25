@@ -140,13 +140,6 @@ for iter in range(max_iter):
             Jn_converged = True
             break # remove this line to continue the simulation for Add/Remove/Freeze an agent
 
-    ##############################
-    # Add/Remove/Freeze an agent #
-    ##############################
-    # if Jn_converged:
-    #     Your code here...
-
-
     # Record the elapsed time
     t_elapsed.append(time.time() - start_time)
     

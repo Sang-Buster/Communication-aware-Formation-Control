@@ -1,7 +1,7 @@
 % Communication-aware Formation Control Algorithm
-% Task 2: Obstacle Avoidance and Path Planning
+% Task 1: Add/Remove/Freeze An Agent
 % Author: Sang Xing
-% Date: 1/26/2024
+% Date: 01/26/2024
 
 close all;
 clc;
@@ -36,9 +36,6 @@ swarm = [
 % Initialize the swarm size
 swarm_size = size(swarm, 1);
 
-% Initialize the swarm destination
-swarm_destination = [35, 100];
-
 % Initialize the velocity of each agent
 swarm_control_ui = zeros(swarm_size, swarm_size);
 
@@ -54,9 +51,6 @@ neighbor_agent_matrix = zeros(swarm_size, swarm_size);
 % Initialize performance indicators
 Jn_list = [];                         % Store all average communication performance values
 rn_list = [];                         % Store all average neighboring distance values
-
-% Initialize a flag for Jn convergence
-Jn_converged = false;
 
 % Initialize timer
 start_time = tic;
@@ -145,65 +139,15 @@ for iter=1:max_iter
     Jn_list = [Jn_list, Jn];
     rn_list = [rn_list, rn];
 
-    % Check if the last 20 values in Jn are the same, if so, the formation is completed, and the swarm starts to reach the destination
+    % Check if the last 20 values in Jn are the same
     if length(Jn_list) > 19 && length(unique(round(Jn_list(end-19:end), 4))) == 1
-        if ~Jn_converged
-            fprintf('Formation completed: Jn values has converged in %.2f seconds %d iterations.\n', t_elapsed(end), iter-20);
-            fprintf('Swarm reached to destination starts.\n');
-            Jn_converged = true;
-        end
+        fprintf('Formation completed: Jn values has converged in %.2f seconds %d iterations.\n', t_elapsed(end), iter-20);
+        break; % Remove this line for Add/Remove/Freeze an agent
     end
 
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % Reach2Destination control input %
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    if Jn_converged
-        % Calculate the centroid of the swarm
-        swarm_centroid = mean(swarm);
-
-        % Find the index of the agent with the minimum distance to the centroid
-        k = helper.find_closest_agent(swarm, swarm_centroid);
-        
-        % Initialize scaling factor (they're adjustable!)
-        am = 1; bm = 5;
-
-        % Calculate the destination velocity for the swarm
-        x_y_diff_vector = swarm_destination - swarm(k, :);        
-        distance_to_destination = norm(x_y_diff_vector);
-        swarm_velocity = x_y_diff_vector / distance_to_destination;
-        
-        % Calculate the scaling factor to the swarm_velocity
-        if distance_to_destination > bm
-            scaling_factor = am;
-        else
-            scaling_factor = am * (distance_to_destination / bm);
-        end
-
-        for i = 1:swarm_size
-            swarm_control_ui(i, 1) = swarm_velocity(1) * scaling_factor;
-            swarm_control_ui(i, 2) = swarm_velocity(2) * scaling_factor;
-
-            swarm(i, 1) = swarm(i, 1) + swarm_control_ui(i, 1);
-            swarm(i, 2) = swarm(i, 2) + swarm_control_ui(i, 2);
-        end
-        
-        % Stop the simulation if the swarm has reached the destination
-        if distance_to_destination < 0.01
-            fprintf('Swarm reached the destination.\n');
-            break;
-        end
-    end
-
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % Obstacle Avoidance control input %
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % You code here...
-    % You may use your own algorithm to reach to the destination
-
-    
     % Append the elapsed time to the list
     t_elapsed = [t_elapsed, toc(start_time)];
 
     % Plot the formation scene, node trace, Jn, and rn plots
-    helper.plot_formation_task2(swarm, swarm_destination, swarm_size, neighbor_agent_matrix, PT, iter, node_colors, edge_colors, fig1, fig2, fig3, fig4, Jn_list, rn_list, t_elapsed, swarm_trace)
+    helper.plot_formation_task1(swarm, swarm_size, neighbor_agent_matrix, PT, iter, node_colors, edge_colors, fig1, fig2, fig3, fig4, Jn_list, rn_list, t_elapsed, swarm_trace)
 end

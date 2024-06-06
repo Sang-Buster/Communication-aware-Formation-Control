@@ -26,13 +26,10 @@
  ┣ 📂lib                              // Supplementary Materials
  ┣ 📂src                              // Source Code
  ┃ ┣ 📂matlab_version
- ┃ ┃ ┣ 📄formation_control_proj1.m
- ┃ ┃ ┣ 📄formation_control_proj2.m
+ ┃ ┃ ┣ 📄main.m
  ┃ ┃ ┗ 📄utils.m
  ┃ ┗ 📂python_version
- ┃ ┃ ┣ 📄formation_control_proj1.py
- ┃ ┃ ┣ 📄formation_control_proj2.py
- ┃ ┃ ┣ 📄setup.py
+ ┃ ┃ ┣ 📄main.py
  ┃ ┃ ┗ 📄utils.py
  ┣ 📄.gitignore
  ┗ 📄README.md

@@ -6,18 +6,6 @@
 
 </br>
 
-<h2 align="center">Project Tasks</h2>
-
-#### Project 1: 
-- Add one agent to the swarm.
-- Remove one agent from the swarm.
-- Make one agent stay still in the swarm.
-
-#### Project 2: 
-- Make a destination for the swarm to reach to.
-- Set obstacles along the way. 
-- Develop a strategy to avoid obstacles while reaching the destination.
-
 <h2 align="center">File Tree</h2>
 
 ```text

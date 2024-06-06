@@ -4,8 +4,6 @@
 
 <p align="center"><b>#Unmanned Aerial Vehicles &emsp; #Multi-agent Systems &emsp; #Decentralized<br/>#Distributed &emsp; #Communication-aware &emsp; #Formation Control</b></p>
 
-</br>
-
 <h2 align="center">File Tree</h2>
 
 ```text

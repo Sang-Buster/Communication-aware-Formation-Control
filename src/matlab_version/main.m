@@ -1,6 +1,5 @@
 % Communication-aware Formation Control Algorithm
-% Task 1: Add/Remove/Freeze An Agent
-% Author: Sang Xing
+% Reproduce Author: Sang Xing
 % Date: 01/26/2024
 
 close all;

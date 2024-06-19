@@ -171,9 +171,6 @@ def plot_figures_task1(axs, t_elapsed, Jn, rn, swarm_position, PT, communication
     
     axs[0, 0].axis('equal')
     
-    # Plot added/removed agent 
-    # Your code here...
-
     ###########################
     # Plot swarm trajectories #
     ###########################
@@ -290,9 +287,6 @@ def plot_figures_task2(axs, t_elapsed, Jn, rn, swarm_position, swarm_destination
     
     axs[0, 0].axis('equal')
     
-    # Plot obstacles
-    # Your code here...
-
     ###########################
     # Plot swarm trajectories #
     ###########################
@@ -343,9 +337,6 @@ def plot_figures_task2(axs, t_elapsed, Jn, rn, swarm_position, swarm_destination
     axs[0, 1].plot(*swarm_destination, marker='s', markersize=10, color='none', mec='black')
     axs[0, 1].text(swarm_destination[0], swarm_destination[1] + 3, 'Destination', ha='center', va='bottom')
 
-    # Plot obstacles
-    # Your code here...
-    
     #######################
     # Plot Jn performance #
     #######################

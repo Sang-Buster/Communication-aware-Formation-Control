@@ -219,9 +219,6 @@ def plot_figures_task1(axs, t_elapsed, Jn, rn, swarm_position, PT, communication
         
     # Plot the initial positions
     axs[0, 1].scatter(trajectory_array[0, :, 0], trajectory_array[0, :, 1], color=node_colors)
-
-    # Plot added/removed agent 
-    # Your code here...
     
     #######################
     # Plot Jn performance #

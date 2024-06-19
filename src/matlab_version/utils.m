@@ -178,9 +178,6 @@ classdef utils
                 end
             end
             
-            % Plot added/removed agent
-            % Your code here...
-            
             xlim([min(swarm(:, 1)) - 10, max(swarm(:, 1)) + 10]);
             ylim([min(swarm(:, 2)) - 10, max(swarm(:, 2)) + 10]);            
             axis equal;

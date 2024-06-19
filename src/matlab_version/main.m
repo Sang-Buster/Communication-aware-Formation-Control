@@ -141,7 +141,7 @@ for iter=1:max_iter
     % Check if the last 20 values in Jn are the same
     if length(Jn_list) > 19 && length(unique(round(Jn_list(end-19:end), 4))) == 1
         fprintf('Formation completed: Jn values has converged in %.2f seconds %d iterations.\n', t_elapsed(end), iter-20);
-        break; % Remove this line for Add/Remove/Freeze an agent
+        break;
     end
 
     % Append the elapsed time to the list

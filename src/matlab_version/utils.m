@@ -208,9 +208,6 @@ classdef utils
                 end
             end
 
-            % Plot added/removed agent
-            % Your code here...
-            
             xlim([-10, 80]);  
             ylim([-30, 30]);        
             axis equal;
@@ -307,9 +304,6 @@ classdef utils
             rectangle('Position', [square_x, square_y, square_size, square_size], 'EdgeColor', 'k', 'LineWidth', 2);
             text(swarm_destination(1), swarm_destination(2) + 3, 'Destination', 'HorizontalAlignment', 'center', 'VerticalAlignment', 'bottom');
 
-            % Plot obstacles
-            % Your code here...
-
             xlim([min([swarm(:, 1); swarm_destination(1)]) - 10, max([swarm(:, 1); swarm_destination(1)]) + 10]);
             ylim([min([swarm(:, 2); swarm_destination(2)]) - 10, max([swarm(:, 2); swarm_destination(2)]) + 10]);            
             axis equal;
@@ -346,9 +340,6 @@ classdef utils
             square_y = swarm_destination(2) - square_size / 2;
             rectangle('Position', [square_x, square_y, square_size, square_size], 'EdgeColor', 'k', 'LineWidth', 2);
             text(swarm_destination(1), swarm_destination(2) + 3, 'Destination', 'HorizontalAlignment', 'center', 'VerticalAlignment', 'bottom');
-
-            % Plot obstacles
-            % Your code here...
 
             % Adjust the x and y limits to include the destination
             xlim([-20, 80]);  

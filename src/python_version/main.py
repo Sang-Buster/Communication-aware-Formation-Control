@@ -137,7 +137,7 @@ for iter in range(max_iter):
         if not Jn_converged:
             print(f"Formation completed: Jn values has converged in {round(t_elapsed[-1], 2)} seconds {iter-20} iterations.")
             Jn_converged = True
-            break # remove this line to continue the simulation for Add/Remove/Freeze an agent
+            break
 
     # Record the elapsed time
     t_elapsed.append(time.time() - start_time)

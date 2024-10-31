@@ -7,7 +7,7 @@
 <h2 align="center">File Tree</h2>
 
 ```text
-📦330 Final Project
+📦Communication-aware-Formation-Control 
  ┣ 📂img                              // Readme Assets
  ┣ 📂lib                              // Supplementary Materials
  ┣ 📂src                              // Source Code
